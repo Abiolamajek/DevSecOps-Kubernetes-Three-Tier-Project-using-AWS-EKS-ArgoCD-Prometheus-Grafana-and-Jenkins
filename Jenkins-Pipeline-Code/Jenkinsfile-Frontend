@@ -87,7 +87,7 @@ pipeline {
         }
         stage('Update Deployment file') {
             environment {
-                GIT_REPO_NAME = "End-to-End-Kubernetes-Three-Tier-DevSecOps-Project"
+                GIT_REPO_NAME = "DevSecOps-Kubernetes-Three-Tier-Project-using-AWS-EKS-ArgoCD-Prometheus-Grafana-and-Jenkins"
                 GIT_USER_NAME = "Abiolamajek"
             }
             steps {
