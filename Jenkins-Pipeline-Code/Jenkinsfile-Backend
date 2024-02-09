@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git credentialsId: 'GITHUB', url: 'https://github.com/Abiolamajek/-DevSecOps-Kubernetes-Three-Tier-Project-using-AWS-EKS-ArgoCD-Prometheus-Grafana-and-Jenkins.git'
+                git credentialsId: 'GITHUB', url: 'https://github.com/Abiolamajek/DevSecOps-Kubernetes-Three-Tier-Project-using-AWS-EKS-ArgoCD-Prometheus-Grafana-and-Jenkins.git'
             }
         }
         stage('Sonarqube Analysis') {
@@ -83,12 +83,12 @@ pipeline {
         }
         stage('Checkout Code') {
             steps {
-                git credentialsId: 'GITHUB', url: 'https://github.com/Abiolamajek/-DevSecOps-Kubernetes-Three-Tier-Project-using-AWS-EKS-ArgoCD-Prometheus-Grafana-and-Jenkins.git'
+                git credentialsId: 'GITHUB', url: 'https://github.com/Abiolamajek/DevSecOps-Kubernetes-Three-Tier-Project-using-AWS-EKS-ArgoCD-Prometheus-Grafana-and-Jenkins.git'
             }
         }
         stage('Update Deployment file') {
             environment {
-                GIT_REPO_NAME = "End-to-End-Kubernetes-Three-Tier-DevSecOps-Project"
+                GIT_REPO_NAME = "DevSecOps-Kubernetes-Three-Tier-Project-using-AWS-EKS-ArgoCD-Prometheus-Grafana-and-Jenkins"
                 GIT_USER_NAME = "Abiolamajek"
             }
             steps {
@@ -101,10 +101,10 @@ pipeline {
                             echo $BUILD_NUMBER
                             imageTag=$(grep -oP '(?<=backend:)[^ ]+' deployment.yaml)
                             echo $imageTag
-                            sed -i "s/${env.AWS_ECR_REPO_NAME}:${imageTag}/${env.AWS_ECR_REPO_NAME}:${BUILD_NUMBER}/" deployment.yaml
+                            sed -i "s#${AWS_ECR_REPO_NAME}:${imageTag}#${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}#" deployment.yaml
                             git add deployment.yaml
-                            git commit -m "Update deployment Image to version \${BUILD_NUMBER}"
-                            git push https://${env.GITHUB_TOKEN}@github.com/${env.GIT_USER_NAME}/${env.GIT_REPO_NAME} HEAD:master
+                            git commit -m "Update deployment Image to version ${BUILD_NUMBER}"
+                            git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
                         '''
                     }
                 }
