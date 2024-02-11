@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: backend.moaffordables.com
+    - host: backend.abiolamajek.net
       http:
         paths:
           - path: /api
